@@ -1,0 +1,20 @@
+{
+    "jenkins-runner.jobs": {
+        "argocd-ci": {
+            "isDefault": true,
+            "runWith": "jenkins",
+            "name": "argocd-ci",
+
+        }
+    },
+    "jenkins-runner.hostConfigs": {
+        "jenkins": {
+            "url": "http://54.162.45.228:8080",
+            "user": "mukesh",
+            "password": "mukesh123",
+            "useCrumbIssuer": true,
+
+
+        }
+    }
+}
