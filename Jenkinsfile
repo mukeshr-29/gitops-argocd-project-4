@@ -18,7 +18,7 @@ pipeline {
         stage('checkout scm') {
             steps {
                 script {
-                    github credentialsId: 'github',
+                    git credentialsId: 'github',
                            url: 'https://github.com/mukeshr-29/gitops-argocd-project-4.git',
                            branch: 'main'
                 }
