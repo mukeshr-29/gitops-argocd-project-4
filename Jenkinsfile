@@ -27,6 +27,7 @@ pipeline {
         stage('build docker img') {
             steps {
                 script{
+                    println "Current Working Directory: ${pwd()}"
                     docker_image = docker.build "${IMAGE_NAME}:${IMAGE_TAG}"
                 }
             }
