@@ -8,19 +8,6 @@ pipeline {
         REGISTRY_CREDS = 'dockerhub'
     }
     stages {
-        stage('Debug') {
-            steps {
-                script {
-                    def workspacePath = env.WORKSPACE
-                    echo "Workspace Path: ${workspacePath}"
-                    def files = findFiles(glob: '**/*', excludes: '')
-                    echo "Workspace Files:"
-                    files.each { file ->
-                        echo " - ${file.path}"
-                    }
-                }
-            }
-        }
         stage('clean workspace') {
             steps {
                 script {
@@ -31,9 +18,9 @@ pipeline {
         stage('checkout scm') {
             steps {
                 script {
-                    github credentialsId : 'github',
-                    url : 'https://github.com/mukeshr-29/gitops-argocd-project-4.git',
-                    branch : 'main'
+                    github(credentialsId: 'github',
+                           url: 'https://github.com/mukeshr-29/gitops-argocd-project-4.git',
+                           branch: 'main')
                 }
             }
         }
@@ -49,10 +36,10 @@ pipeline {
                 }
             }
         }
-        stage('push docker img'){
-            steps{
-                script{
-                    docker.withRegistry('',REGISTRY_CREDS){
+        stage('push docker img') {
+            steps {
+                script {
+                    docker.withRegistry('', REGISTRY_CREDS) {
                         docker_image.push("$BUILD_NUMBER")
                         docker_image.push('latest')
                     }
