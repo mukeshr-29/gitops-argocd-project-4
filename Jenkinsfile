@@ -64,7 +64,7 @@ pipeline {
             steps{
                 script{
                     sh """
-                    git config --global user.name "mukeshr-29
+                    git config --global user.name "mukeshr-29"
                     git config --global user.email "mukeshr2911@gmail.com"
                     git add .
                     git commit -m "auto update"
