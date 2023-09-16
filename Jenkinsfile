@@ -15,7 +15,7 @@ pipeline {
                 }
             }
         }
-        stage('checkout scm') {
+        stage('Checkout SCM') {
             steps {
                 script {
                     git credentialsId: 'github',
