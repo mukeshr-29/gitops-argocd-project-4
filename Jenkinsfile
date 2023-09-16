@@ -70,7 +70,7 @@ pipeline {
                     git commit -m "auto update"
                     """
                     withCredentials([gitUsernamePassword(credentialsId: 'github', gitToolName: 'Default')]) {
-                        git push "https://github.com/mukeshr-29/gitops-argocd-project-4.git" main
+                    sh "git push https://github.com/mukeshr-29/gitops-argocd-project-4.git main"
                     }
                 }
             }
