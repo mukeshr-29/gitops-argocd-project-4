@@ -60,5 +60,20 @@ pipeline {
                 }
             }
         }
+        stage('Push the changed deployment file to Git'){
+            steps{
+                script{
+                    sh """
+                    git config --global user.name "mukeshr-29
+                    git config --global user.email "mukeshr2911@gmail.com"
+                    git add .
+                    git commit -m "auto update"
+                    """
+                    withCredentials([gitUsernamePassword(credentialsId: 'github', gitToolName: 'Default')]) {
+                        git push "https://github.com/mukeshr-29/gitops-argocd-project-4.git" main
+                    }
+                }
+            }
+        }
     }
 }
