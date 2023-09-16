@@ -60,6 +60,17 @@ pipeline {
                 }
             }
         }
+        stage('Updating Kuberneter deployment file'){
+            steps{
+                script{
+                    sh """
+                    cat deployment.yml
+                    sed -i 's/${APP_NAME}.*/${APP_NAME}:${IMAGE_TAG}/g' deployment.yml
+                    cat deployment.yml
+                    """
+                }
+            }
+        }
         stage('Push the changed deployment file to Git'){
             steps{
                 script{
@@ -75,5 +86,6 @@ pipeline {
                 }
             }
         }
+
     }
 }
