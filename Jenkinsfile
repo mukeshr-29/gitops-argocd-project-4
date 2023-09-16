@@ -25,13 +25,13 @@ pipeline {
             }
         }
         stage('build docker img') {
-    steps {
-        script {
-            def dockerfilePath = "${WORKSPACE}/Dockerfile"
-            if (fileExists(dockerfilePath)) {
-                docker_image = docker.build "${IMAGE_NAME}:${IMAGE_TAG}"
-            } else {
-                error "Dockerfile not found at ${dockerfilePath}"
+            steps {
+                script {
+                    def dockerfilePath = "${WORKSPACE}/Dockerfile"
+                    if (fileExists(dockerfilePath)) {
+                        docker_image = docker.build "${IMAGE_NAME}:${IMAGE_TAG}"
+                    } else {
+                        error "Dockerfile not found at ${dockerfilePath}"
                 }
             }
         }
