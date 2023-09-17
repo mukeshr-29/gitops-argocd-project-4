@@ -9,7 +9,7 @@
     },
     "jenkins-runner.hostConfigs": {
         "jenkins": {
-            "url": "http://54.174.123.16:8080",
+            "url": "http://44.203.95.4:8080",
             "user": "mukesh",
             "password": "mukesh123",
             "useCrumbIssuer": true,
