@@ -6,6 +6,7 @@ pipeline {
         IMAGE_TAG = "${BUILD_NUMBER}"
         IMAGE_NAME = "${DOCKERHUB_USERNAME}" + "/" + "${APP_NAME}"
         REGISTRY_CREDS = 'dockerhub'
+        JENKINS_API_TOKEN = credentials('JENKINS_API_TOKEN')
     }
     stages {
         stage('clean workspace') {
@@ -49,30 +50,11 @@ pipeline {
                 }
             }
         }
-        stage('Updating Kuberneter deployment file'){
+        stage('triggger 2nd pipeline'){
             steps{
                 script{
-                    sh """
-                    cat deployment.yml
-                    sed -i 's/${APP_NAME}.*/${APP_NAME}:${IMAGE_TAG}/g' deployment.yml
-                    cat deployment.yml
-                    """
-                }
-            }
-        }
-        stage('Push the changed deployment file to Git'){
-            steps{
-                script{
-                    sh """
-                    git config --global user.name "mukeshr-29"
-                    git config --global user.email "mukeshr2911@gmail.com"
-                    git add .
-                    git commit -m "auto update"
-                    """
-                    withCredentials([gitUsernamePassword(credentialsId: 'github', gitToolName: 'Default')]) {
-                    sh "git push https://github.com/mukeshr-29/gitops-argocd-project-4.git main"
-                    }
-                }
+                    sh "curl -v -k -user mukesh:${JENKINS_API_TOKEN} -X POST -H 'cache-control: no-cache' -H 'content-type: application/x-www-form-urlencoded' -data 'IMAGE_TAG=${IMAGE_TAG}' 'http://44.203.95.4:8080/job/argocd-ci-2/buildWithParameters?token=gitops' "               
+                     }
             }
         }
 
